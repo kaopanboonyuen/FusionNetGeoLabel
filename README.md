@@ -92,9 +92,9 @@ If this work contributes to your research, please cite it as follows:
 ```
 
 <p align="center">
-  <img src="img/out5.png" alt="Sample Output 1" width="400"/>
+  <img src="img/out3.png" alt="Sample Output 1" width="400"/>
   <img src="img/out1.png" alt="Sample Output 2" width="400"/>
-  <img src="img/out3.png" alt="Sample Output 3" width="400"/>
+  <img src="img/out5.png" alt="Sample Output 3" width="400"/>
 </p>
 
 ## **License** ⚖️
