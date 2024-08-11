@@ -1,0 +1,21 @@
+{
+    "device": "cuda",
+    "data": {
+        "train_dataset": "path_to_train_dataset",
+        "val_dataset": "path_to_val_dataset",
+        "batch_size": 8,
+        "num_workers": 4
+    },
+    "model": {
+        "in_channels": 3,
+        "out_channels": 5,
+        "features": [64, 128, 256, 512]
+    },
+    "training": {
+        "lr": 0.001,
+        "epochs": 50,
+        "val_interval": 5,
+        "save_interval": 10,
+        "checkpoint_path": "checkpoints/model_checkpoint.pth"
+    }
+}
