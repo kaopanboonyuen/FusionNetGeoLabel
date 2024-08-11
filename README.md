@@ -35,6 +35,10 @@ Our experiments, conducted on two private Landsat-8 datasets and the public "ISP
 - **ISPRS Vaihingen Dataset:** [Download Dataset](https://paperswithcode.com/dataset/isprs-vaihingen)
 - **Scoreboard of ISPRS Vaihingen:** [Semantic Segmentation Leaderboard](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-vaihingen)
 
+![](img/GraphicalAbstract.png)
+![](img/p2_method_2.png)
+![](img/p3_method_3.png)
+
 ## How to Use
 
 ### Training
@@ -82,6 +86,9 @@ If you find this work useful in your research, please consider citing:
   note      = {Doctor of Philosophy}
 }
 ```
+![](img/out5.png)
+![](img/out1.png)
+![](img/out3.png)
 
 ## License
 
