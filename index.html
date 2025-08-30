@@ -52,11 +52,24 @@
             }
         }
 
-        header h1 {
-            font-size: 2.4rem;
-            margin: 0 0 10px;
-            font-weight: 600;
-        }
+header h1 {
+    font-size: 2.4rem;
+    margin: 0 0 10px;
+    font-weight: 600;
+    word-break: break-word;     /* Allows long words to wrap */
+    overflow-wrap: break-word;  /* Also supports text wrapping */
+    max-width: 100%;            /* Prevents overflowing the container */
+    text-align: center;
+    padding: 0 10px;            /* Adds side breathing room on mobile */
+}
+
+/* 📱 Responsive fix for small screens */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.6rem;       /* Reduce font size on mobile */
+    }
+}
+
 
         header .authors {
             font-size: 1rem;
@@ -354,7 +367,7 @@
         <div class="authors">
             <p>
                 <strong>Ph.D. Thesis Project by</strong><br />
-                <a href="https://kaopanboonyuen.github.io/" target="_blank" rel="noopener">Teerapong Panboonyuen</a> &mdash; Computer Engineering, Chulalongkorn University
+                <a href="https://kaopanboonyuen.github.io/" target="_blank" rel="noopener">Teerapong Panboonyuen</a> &mdash; Chulalongkorn University
             </p>
             <p>
                 <a class="button" href="https://digital.car.chula.ac.th/chulaetd/8534/" target="_blank" rel="noopener">Read Full Thesis PDF</a>
@@ -376,7 +389,7 @@
 <section>
     <h2>🎓 Academic Journey & Scholarships</h2>
     <p>
-        I earned my <strong>Ph.D. in Computer Engineering</strong> from Chulalongkorn University (2018–2020), supported by two prestigious scholarships:
+        I received my <strong>Ph.D. in Computer Engineering</strong> from Chulalongkorn University (2018–2020), supported by two prestigious scholarships:
     </p>
     <ul>
         <li><strong>The 100th Anniversary Chulalongkorn University Fund for Doctoral Scholarship</strong></li>
@@ -384,7 +397,7 @@
     </ul>
 
     <p>
-        Prior to this, I completed my <strong>Master of Engineering in Computer Engineering</strong> (2016–2017), supported by:
+        Prior to this, I received my <strong>Master of Engineering in Computer Engineering</strong> from Chulalongkorn University (2016–2017), supported by:
     </p>
     <ul>
         <li><strong>H.M. the King Bhumibol Adulyadej’s 72nd Birthday Anniversary Scholarship</strong></li>
@@ -416,8 +429,9 @@
 </div>
 
 
-    <h3>📝 Selected Publications</h3>
+<h3>📝 Selected Publications</h3>
 <div class="publication-list">
+
 
     <div class="publication">
         <p class="pub-title">
@@ -435,6 +449,15 @@
             <span class="pub-journal">Remote Sensing, 2020</span>
         </p>
         <a class="button" href="https://www.mdpi.com/2072-4292/12/8/1233" target="_blank" rel="noopener">📄 Read Paper</a>
+    </div>
+
+        <div class="publication">
+        <p class="pub-title">
+            <strong>Panboonyuen, T.</strong>, et al.<br />
+            <em>Semantic Segmentation on Remotely Sensed Images Using an Enhanced Global Convolutional Network with Channel Attention and Domain Specific Transfer Learning</em><br />
+            <span class="pub-journal">Remote Sensing, 2019</span>
+        </p>
+        <a class="button" href="https://www.mdpi.com/2072-4292/11/1/83" target="_blank" rel="noopener">📄 Read Paper</a>
     </div>
 
     <div class="publication">
@@ -571,8 +594,7 @@ pip install -r requirements.txt
 
     <footer>
         <p>
-            &copy; 2019 Teerapong Panboonyuen &mdash; 
-            <a href="https://digital.car.chula.ac.th/chulaetd/8534/" target="_blank" rel="noopener">PhD Thesis</a>
+            &copy; 2020 Teerapong Panboonyuen</a>
         </p>
     </footer>
 
