@@ -189,6 +189,161 @@
             margin: 40px 0;
             width: 50px;
         }
+
+
+
+      
+        .thesis-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+    padding: 0 10px; /* adds spacing from screen edges on mobile */
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.thesis-card {
+    background: #ffffff;
+    border-left: 5px solid #457b9d;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+}
+
+.thesis-card h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1d3557;
+    font-weight: 600;
+}
+
+.thesis-card p {
+    font-size: 0.95rem;
+    color: #333;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.thesis-card .button {
+    align-self: flex-start;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    width: fit-content;
+    max-width: 100%;
+    word-break: break-word;
+}
+
+/* 📱 Mobile fix */
+@media (max-width: 600px) {
+    .thesis-list {
+        flex-direction: column;
+        padding: 0 16px;
+    }
+
+    .thesis-card {
+        width: 100%;
+    }
+
+    .thesis-card .button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+
+        .publication-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 0;
+    padding: 0 10px; /* prevent edge overflow on mobile */
+    box-sizing: border-box;
+}
+
+.publication {
+    background: #ffffff;
+    border-left: 5px solid #e63946;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+}
+
+.pub-title {
+    font-size: 1rem;
+    margin: 0;
+    color: #1d3557;
+    line-height: 1.5;
+}
+
+.pub-journal {
+    font-weight: 500;
+    color: #457b9d;
+    font-size: 0.95rem;
+}
+
+.publication .button {
+    align-self: flex-start;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .publication {
+        padding: 15px;
+    }
+
+    .publication .button {
+        width: 100%;
+        text-align: center;
+        white-space: normal;
+    }
+}
+
+
+        @media (max-width: 600px) {
+    .authors p {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 10px; /* optional: adds breathing space from screen edges */
+    }
+
+    .authors a.button {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .publication-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+
+}
+
+
     </style>
 </head>
 
@@ -211,56 +366,91 @@
 
     <div class="container">
 
-        <section>
-            <h2>📚 Overview</h2>
-            <p><strong>FusionNetGeoLabel</strong> is a cutting-edge deep learning framework tailored for semantic segmentation in remotely sensed imagery. This project is the result of my Ph.D. research focused on improving accuracy and efficiency in labeling satellite and aerial images.</p>
-        </section>
-
-
        <section>
-    <h2>🎓 Academic Excellence & Scholarships</h2>
+    <h2>📚 Project Overview</h2>
     <p>
-        I have completed my <strong>Ph.D. in Computer Engineering</strong> at Chulalongkorn University (2018–2020), proudly supported by these prestigious scholarships:
+        <strong>FusionNetGeoLabel</strong> is an advanced deep learning framework designed for semantic segmentation in satellite and aerial imagery. Developed as part of my Ph.D. research, it aims to significantly enhance the accuracy and efficiency of geospatial labeling using cutting-edge neural architectures, attention mechanisms, and domain-specific transfer learning techniques.
+    </p>
+</section>
+
+<section>
+    <h2>🎓 Academic Journey & Scholarships</h2>
+    <p>
+        I earned my <strong>Ph.D. in Computer Engineering</strong> from Chulalongkorn University (2018–2020), supported by two prestigious scholarships:
     </p>
     <ul>
         <li><strong>The 100th Anniversary Chulalongkorn University Fund for Doctoral Scholarship</strong></li>
         <li><strong>The 90th Anniversary of Chulalongkorn University Scholarship</strong></li>
     </ul>
+
     <p>
-        I also completed my <strong>Master of Engineering in Computer Engineering</strong> degree (2016–2017), supported by 
+        Prior to this, I completed my <strong>Master of Engineering in Computer Engineering</strong> (2016–2017), supported by:
     </p>
     <ul>
-        <li><strong>The H.M. the King Bhumibhol Adulyadej’s 72nd Birthday Anniversary Scholarship</strong></li>
+        <li><strong>H.M. the King Bhumibol Adulyadej’s 72nd Birthday Anniversary Scholarship</strong></li>
     </ul>
 
-    <h3>📚 Thesis Works</h3>
-    <p>
-        <a class="button" href="https://digital.car.chula.ac.th/chulaetd/8534/" target="_blank" rel="noopener" style="margin-right:10px;">
-            View Ph.D. Thesis
-        </a>
-        <a class="button" href="https://www.car.chula.ac.th/display7.php?bib=2156287" target="_blank" rel="noopener">
-            View M.Eng. Thesis
-        </a>
-    </p>
+<h3>📖 Thesis Works</h3>
+<div class="thesis-list">
+
+    <div class="thesis-card">
+        <h4>Ph.D. Thesis</h4>
+        <p>
+            <strong>FusionNetGeoLabel:</strong> A Deep Learning Framework for Semantic Segmentation in Remote Sensing.<br>
+            <em>Teerapong Panboonyuen</em><br>
+            <em>Chulalongkorn University, 2020</em>
+        </p>
+        <a class="button" href="https://digital.car.chula.ac.th/chulaetd/8534/" target="_blank" rel="noopener">📄 Read Ph.D. Thesis</a>
+    </div>
+
+    <div class="thesis-card">
+        <h4>M.Eng. Thesis</h4>
+        <p>
+            <strong>High-Resolution Road Extraction:</strong> Using Deep Convolutional Neural Networks and CRFs.<br>
+           <em>Teerapong Panboonyuen</em><br>
+            <em>Chulalongkorn University, 2017</em>
+        </p>
+        <a class="button" href="https://www.car.chula.ac.th/display7.php?bib=2156287" target="_blank" rel="noopener">📄 Read M.Eng. Thesis</a>
+    </div>
+
+</div>
+
 
     <h3>📝 Selected Publications</h3>
-    <ul>
-        <li>
-            Panboonyuen, T., et al., <em>Transformer-Based Decoder Designs for Semantic Segmentation on Remotely Sensed Images</em>, Remote Sensing, 2021.  
-            <a class="button" href="https://www.mdpi.com/2072-4292/13/24/5100" target="_blank" rel="noopener" style="font-size:0.9rem; padding:5px 12px; margin-left:10px;">Read Paper</a>
-        </li>
-        <li>
-            Panboonyuen, T., et al., <em>Feature Fusion-Based Enhanced Global Convolutional Network with Channel Attention for Remote Sensing</em>, Remote Sensing, 2020.  
-            <a class="button" href="https://www.mdpi.com/2072-4292/12/8/1233" target="_blank" rel="noopener" style="font-size:0.9rem; padding:5px 12px; margin-left:10px;">Read Paper</a>
-        </li>
-        <li>
-            Panboonyuen, T., et al., <em>Road Segmentation on Aerial Imagery Using Deep CNNs and Conditional Random Fields</em>, Remote Sensing, 2017.  
-            <a class="button" href="https://www.mdpi.com/2072-4292/9/7/680" target="_blank" rel="noopener" style="font-size:0.9rem; padding:5px 12px; margin-left:10px;">Read Paper</a>
-        </li>
-    </ul>
+<div class="publication-list">
+
+    <div class="publication">
+        <p class="pub-title">
+            <strong>Panboonyuen, T.</strong>, et al.<br />
+            <em>Transformer-Based Decoder Designs for Semantic Segmentation on Remotely Sensed Images</em><br />
+            <span class="pub-journal">Remote Sensing, 2021</span>
+        </p>
+        <a class="button" href="https://www.mdpi.com/2072-4292/13/24/5100" target="_blank" rel="noopener">📄 Read Paper</a>
+    </div>
+
+    <div class="publication">
+        <p class="pub-title">
+            <strong>Panboonyuen, T.</strong>, et al.<br />
+            <em>Feature Fusion-Based Enhanced Global Convolutional Network with Channel Attention for Remote Sensing</em><br />
+            <span class="pub-journal">Remote Sensing, 2020</span>
+        </p>
+        <a class="button" href="https://www.mdpi.com/2072-4292/12/8/1233" target="_blank" rel="noopener">📄 Read Paper</a>
+    </div>
+
+    <div class="publication">
+        <p class="pub-title">
+            <strong>Panboonyuen, T.</strong>, et al.<br />
+            <em>Road Segmentation on Aerial Imagery Using Deep CNNs and Conditional Random Fields</em><br />
+            <span class="pub-journal">Remote Sensing, 2017</span>
+        </p>
+        <a class="button" href="https://www.mdpi.com/2072-4292/9/7/680" target="_blank" rel="noopener">📄 Read Paper</a>
+    </div>
+
+</div>
+
 
     <p>
-        My research advances state-of-the-art semantic segmentation for remote sensing imagery, combining novel neural architectures, attention mechanisms, and domain-specific transfer learning — with applications in smart cities, environmental monitoring, and geospatial intelligence.
+        My research contributes to the advancement of intelligent systems in geospatial analysis — supporting smart cities, environmental monitoring, disaster response, and geospatial intelligence with more robust and accurate semantic segmentation models.
     </p>
 </section>
 
