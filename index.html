@@ -354,6 +354,19 @@ header h1 {
 }
 
 
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.button-row .button {
+    flex: 1 1 45%; /* Ensures buttons are responsive */
+    text-align: center;
+}
+
+
+
 }
 
 
@@ -386,6 +399,7 @@ header h1 {
     </p>
 </section>
 
+
 <section>
     <h2>🎓 Academic Journey & Scholarships</h2>
     <p>
@@ -403,79 +417,95 @@ header h1 {
         <li><strong>H.M. the King Bhumibol Adulyadej’s 72nd Birthday Anniversary Scholarship</strong></li>
     </ul>
 
-<h3>📖 Thesis Works</h3>
-<div class="thesis-list">
+    <h3>📖 Thesis Works</h3>
+    <div class="thesis-list">
 
-    <div class="thesis-card">
-        <h4>Ph.D. Thesis</h4>
-        <p>
-            <strong>FusionNetGeoLabel:</strong> A Deep Learning Framework for Semantic Segmentation in Remote Sensing.<br>
-            <em>Teerapong Panboonyuen</em><br>
-            <em>Chulalongkorn University, 2020</em>
-        </p>
-        <a class="button" href="https://digital.car.chula.ac.th/chulaetd/8534/" target="_blank" rel="noopener">📄 Read Ph.D. Thesis</a>
+        <div class="thesis-card">
+            <h4>Ph.D. Thesis</h4>
+            <p>
+                <strong>FusionNetGeoLabel:</strong> A Deep Learning Framework for Semantic Segmentation in Remote Sensing.<br>
+                <em>Teerapong Panboonyuen</em><br>
+                <em>Chulalongkorn University, 2020</em>
+            </p>
+            <!-- <a class="button" href="https://digital.car.chula.ac.th/chulaetd/8534/" target="_blank" rel="noopener">📄 Read Ph.D. Thesis</a> -->
+            
+            <div class="button-row">
+                <a class="button" href="https://digital.car.chula.ac.th/chulaetd/8534/" target="_blank" rel="noopener">🎤 Ph.D. Thesis</a>
+                <a class="button" href="https://kaopanboonyuen.github.io/files/panboonyuen_phd_defense_2020.pdf" target="_blank" rel="noopener">🔍 Ph.D. Slides</a>
+                <a class="button" href="https://kaopanboonyuen.github.io/talk/ph.d.-thesis-defense/" target="_blank" rel="noopener">🎤 Thesis Blog</a>
+                <a class="button" href="https://kaopanboonyuen.github.io/FusionNetGeoLabel/" target="_blank" rel="noopener">🔍 Thesis Showcase</a>
+            </div>
+<!-- 
+            <div class="button-row">
+                <a class="button" href="https://kaopanboonyuen.github.io/talk/ph.d.-thesis-defense/" target="_blank" rel="noopener">🎤 Thesis Blog</a>
+                <a class="button" href="https://kaopanboonyuen.github.io/FusionNetGeoLabel/" target="_blank" rel="noopener">🔍 Thesis Showcase</a>
+            </div> -->
+
+
+
+            <!-- <div class="button-row">
+                <a class="button" href="https://kaopanboonyuen.github.io/files/panboonyuen_phd_defense_2020.pdf" target="_blank" rel="noopener">📑 Thesis Slides</a>
+            </div> -->
+        </div>
+
+        <div class="thesis-card">
+            <h4>M.Eng. Thesis</h4>
+            <p>
+                <strong>High-Resolution Road Extraction:</strong> Using Deep Convolutional Neural Networks and CRFs.<br>
+               <em>Teerapong Panboonyuen</em><br>
+                <em>Chulalongkorn University, 2017</em>
+            </p>
+            <a class="button" href="https://www.car.chula.ac.th/display7.php?bib=2156287" target="_blank" rel="noopener">📄 Read M.Eng. Thesis</a>
+        </div>
+
     </div>
 
-    <div class="thesis-card">
-        <h4>M.Eng. Thesis</h4>
-        <p>
-            <strong>High-Resolution Road Extraction:</strong> Using Deep Convolutional Neural Networks and CRFs.<br>
-           <em>Teerapong Panboonyuen</em><br>
-            <em>Chulalongkorn University, 2017</em>
-        </p>
-        <a class="button" href="https://www.car.chula.ac.th/display7.php?bib=2156287" target="_blank" rel="noopener">📄 Read M.Eng. Thesis</a>
-    </div>
-
-</div>
-
-
-<h3>📝 Selected Publications</h3>
-<div class="publication-list">
-
-
-    <div class="publication">
-        <p class="pub-title">
-            <strong>Panboonyuen, T.</strong>, et al.<br />
-            <em>Transformer-Based Decoder Designs for Semantic Segmentation on Remotely Sensed Images</em><br />
-            <span class="pub-journal">Remote Sensing, 2021</span>
-        </p>
-        <a class="button" href="https://www.mdpi.com/2072-4292/13/24/5100" target="_blank" rel="noopener">📄 Read Paper</a>
-    </div>
-
-    <div class="publication">
-        <p class="pub-title">
-            <strong>Panboonyuen, T.</strong>, et al.<br />
-            <em>Feature Fusion-Based Enhanced Global Convolutional Network with Channel Attention for Remote Sensing</em><br />
-            <span class="pub-journal">Remote Sensing, 2020</span>
-        </p>
-        <a class="button" href="https://www.mdpi.com/2072-4292/12/8/1233" target="_blank" rel="noopener">📄 Read Paper</a>
-    </div>
+    <h3>📝 Selected Publications</h3>
+    <div class="publication-list">
 
         <div class="publication">
-        <p class="pub-title">
-            <strong>Panboonyuen, T.</strong>, et al.<br />
-            <em>Semantic Segmentation on Remotely Sensed Images Using an Enhanced Global Convolutional Network with Channel Attention and Domain Specific Transfer Learning</em><br />
-            <span class="pub-journal">Remote Sensing, 2019</span>
-        </p>
-        <a class="button" href="https://www.mdpi.com/2072-4292/11/1/83" target="_blank" rel="noopener">📄 Read Paper</a>
+            <p class="pub-title">
+                <strong>Panboonyuen, T.</strong>, et al.<br />
+                <em>Transformer-Based Decoder Designs for Semantic Segmentation on Remotely Sensed Images</em><br />
+                <span class="pub-journal">Remote Sensing, 2021</span>
+            </p>
+            <a class="button" href="https://www.mdpi.com/2072-4292/13/24/5100" target="_blank" rel="noopener">📄 Read Paper</a>
+        </div>
+
+        <div class="publication">
+            <p class="pub-title">
+                <strong>Panboonyuen, T.</strong>, et al.<br />
+                <em>Feature Fusion-Based Enhanced Global Convolutional Network with Channel Attention for Remote Sensing</em><br />
+                <span class="pub-journal">Remote Sensing, 2020</span>
+            </p>
+            <a class="button" href="https://www.mdpi.com/2072-4292/12/8/1233" target="_blank" rel="noopener">📄 Read Paper</a>
+        </div>
+
+        <div class="publication">
+            <p class="pub-title">
+                <strong>Panboonyuen, T.</strong>, et al.<br />
+                <em>Semantic Segmentation on Remotely Sensed Images Using an Enhanced Global Convolutional Network with Channel Attention and Domain Specific Transfer Learning</em><br />
+                <span class="pub-journal">Remote Sensing, 2019</span>
+            </p>
+            <a class="button" href="https://www.mdpi.com/2072-4292/11/1/83" target="_blank" rel="noopener">📄 Read Paper</a>
+        </div>
+
+        <div class="publication">
+            <p class="pub-title">
+                <strong>Panboonyuen, T.</strong>, et al.<br />
+                <em>Road Segmentation on Aerial Imagery Using Deep CNNs and Conditional Random Fields</em><br />
+                <span class="pub-journal">Remote Sensing, 2017</span>
+            </p>
+            <a class="button" href="https://www.mdpi.com/2072-4292/9/7/680" target="_blank" rel="noopener">📄 Read Paper</a>
+        </div>
+
     </div>
-
-    <div class="publication">
-        <p class="pub-title">
-            <strong>Panboonyuen, T.</strong>, et al.<br />
-            <em>Road Segmentation on Aerial Imagery Using Deep CNNs and Conditional Random Fields</em><br />
-            <span class="pub-journal">Remote Sensing, 2017</span>
-        </p>
-        <a class="button" href="https://www.mdpi.com/2072-4292/9/7/680" target="_blank" rel="noopener">📄 Read Paper</a>
-    </div>
-
-</div>
-
 
     <p>
         My research contributes to the advancement of intelligent systems in geospatial analysis — supporting smart cities, environmental monitoring, disaster response, and geospatial intelligence with more robust and accurate semantic segmentation models.
     </p>
 </section>
+
 
 
 
