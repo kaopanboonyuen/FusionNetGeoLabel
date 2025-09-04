@@ -1,77 +1,106 @@
-"""
-Author: Teerapong Panboonyuen (Kao Panboonyuen)
-Project: Semantic Segmentation on Remotely Sensed Images Using Deep Convolutional Encoder-Decoder Neural Network
-Description: This script handles the training loop for the FusionNetGeoLabel model. It reads the configuration 
-             from a JSON file, loads the data, initializes the model, and trains it on the specified dataset.
-License: MIT License
-"""
-
-import json
+# -*- coding: utf-8 -*-
+# ======================================================================
+#  FusionNetGeoLabel: HR-GCN-FF-DA for Remote Sensing Semantic Segmentation
+#  Author: Teerapong (Kao) Panboonyuen et al.
+#  Repository: FusionNetGeoLabel
+#  License: MIT
+#
+#  Citation:
+#  @phdthesis{panboonyuen2019semantic,
+#    title     = {Semantic segmentation on remotely sensed images using deep convolutional encoder-decoder neural network},
+#    author    = {Teerapong Panboonyuen},
+#    year      = {2019},
+#    school    = {Chulalongkorn University},
+#    type      = {Ph.D. thesis},
+#    doi       = {10.58837/CHULA.THE.2019.158},
+#    address   = {Faculty of Engineering},
+#    note      = {Doctor of Philosophy}
+#  }
+# ======================================================================
+import os, argparse, yaml, time
 import torch
-import torch.nn as nn
-import torch.optim as optim
 from torch.utils.data import DataLoader
-from dataset import RemoteSensingDataset
-from model import FusionNetGeoLabel
-from utils import load_data, save_checkpoint
+from fusionnetgeolabel import FusionNetGeoLabel
+from fusionnetgeolabel.utils import SegFolder, SegLoss, RunningScore, cosine_lr, ModelEMA, seed_everything
 
-def train(config):
-    # Load configuration
-    with open(config, 'r') as f:
-        cfg = json.load(f)
+def parse_args():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--config', type=str, default='configs/default.yaml')
+    ap.add_argument('--save_dir', type=str, default=None)
+    return ap.parse_args()
 
-    # Load data
-    train_loader, val_loader = load_data(cfg['data'])
+def main():
+    args = parse_args()
+    with open(args.config, 'r') as f:
+        cfg = yaml.safe_load(f)
+    seed_everything(cfg.get('seed', 1337))
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    save_dir = args.save_dir or cfg.get('save_dir', 'runs')
+    os.makedirs(save_dir, exist_ok=True)
 
-    # Initialize model
-    model = FusionNetGeoLabel(cfg['model'])
-    model = model.to(cfg['device'])
+    # Data
+    train_ds = SegFolder(cfg['data']['train_dir'], split='train', img_size=cfg['img_size'], mean=tuple(cfg['data']['mean']), std=tuple(cfg['data']['std']))
+    val_ds   = SegFolder(cfg['data']['val_dir'],   split='val',   img_size=cfg['img_size'], mean=tuple(cfg['data']['mean']), std=tuple(cfg['data']['std']))
+    train_loader = DataLoader(train_ds, batch_size=cfg['batch_size'], shuffle=True, num_workers=cfg['workers'], pin_memory=True, drop_last=True)
+    val_loader   = DataLoader(val_ds,   batch_size=cfg['batch_size'], shuffle=False, num_workers=cfg['workers'], pin_memory=True)
 
-    # Define loss and optimizer
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=cfg['training']['lr'])
+    # Model
+    model = FusionNetGeoLabel(num_classes=cfg['num_classes'],
+                              in_channels=cfg['in_channels'],
+                              hr_channels=tuple(cfg['model']['hr_channels']),
+                              gcn_kernel=cfg['model']['gcn_kernel'],
+                              da_rates=tuple(cfg['model']['da_rates'])).to(device)
 
-    # Training loop
-    for epoch in range(cfg['training']['epochs']):
+    criterion = SegLoss(cfg['num_classes'])
+    optim = torch.optim.AdamW(model.parameters(), lr=cfg['lr'], weight_decay=cfg['weight_decay'])
+    sched = cosine_lr(optim, epochs=cfg['epochs'], eta_min=cfg['cosine_final_lr'], warmup_epochs=cfg['warmup_epochs'])
+    scaler = torch.cuda.amp.GradScaler(enabled=cfg.get('amp', True) and device=='cuda')
+    ema = ModelEMA(model, decay=cfg.get('ema_decay', 0.999))
+
+    best_miou = 0.0
+    global_step = 0
+
+    for epoch in range(cfg['epochs']):
         model.train()
-        running_loss = 0.0
-        for images, labels in train_loader:
-            images, labels = images.to(cfg['device']), labels.to(cfg['device'])
-
-            # Zero the parameter gradients
-            optimizer.zero_grad()
-
-            # Forward pass
-            outputs = model(images)
-            loss = criterion(outputs, labels)
-
-            # Backward pass and optimize
-            loss.backward()
-            optimizer.step()
-
-            running_loss += loss.item()
-
-        print(f"Epoch [{epoch+1}/{cfg['training']['epochs']}], Loss: {running_loss/len(train_loader):.4f}")
+        t0 = time.time()
+        for imgs, masks, _ in train_loader:
+            imgs = imgs.to(device)
+            masks = masks.to(device)
+            optim.zero_grad(set_to_none=True)
+            with torch.cuda.amp.autocast(enabled=cfg.get('amp', True) and device=='cuda'):
+                logits = model(imgs)
+                loss = criterion(logits, masks)
+            scaler.scale(loss).backward()
+            scaler.step(optim)
+            scaler.update()
+            ema.update(model)
+            global_step += 1
+        sched.step()
 
         # Validation
-        if (epoch + 1) % cfg['training']['val_interval'] == 0:
-            validate(model, val_loader, criterion, cfg['device'])
+        model.eval()
+        metric = RunningScore(cfg['num_classes'])
+        with torch.no_grad():
+            for imgs, masks, _ in val_loader:
+                imgs = imgs.to(device)
+                masks = masks.to(device)
+                logits = ema.ema(imgs)
+                pred = torch.argmax(logits, dim=1)
+                metric.update(pred.cpu(), masks.cpu())
+        scores = metric.get_scores()
+        miou = scores['miou']
+        dt = time.time()-t0
+        print(f"Epoch {epoch+1}/{cfg['epochs']} - loss {loss.item():.4f} - mIoU {miou:.4f} - time {dt:.1f}s")
 
-        # Save checkpoint
-        if (epoch + 1) % cfg['training']['save_interval'] == 0:
-            save_checkpoint(model, optimizer, epoch, cfg['training']['checkpoint_path'])
+        torch.save({'model': model.state_dict(),
+                    'ema': ema.state_dict(),
+                    'cfg': cfg}, os.path.join(save_dir, 'last.ckpt'))
+        if miou > best_miou:
+            best_miou = miou
+            torch.save({'model': model.state_dict(),
+                        'ema': ema.state_dict(),
+                        'cfg': cfg}, os.path.join(save_dir, 'best.ckpt'))
+    print("Training complete. Best mIoU =", best_miou)
 
-def validate(model, val_loader, criterion, device):
-    model.eval()
-    val_loss = 0.0
-    with torch.no_grad():
-        for images, labels in val_loader:
-            images, labels = images.to(device), labels.to(device)
-            outputs = model(images)
-            loss = criterion(outputs, labels)
-            val_loss += loss.item()
-
-    print(f'Validation Loss: {val_loss/len(val_loader):.4f}')
-
-if __name__ == "__main__":
-    train('config.json')
+if __name__ == '__main__':
+    main()

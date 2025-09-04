@@ -1,0 +1,29 @@
+seed: 1337
+task: segmentation
+num_classes: 6            # adjust per dataset
+classes: ["impervious", "building", "low_veg", "tree", "car", "clutter"]
+in_channels: 3
+img_size: 512
+batch_size: 4
+epochs: 120
+lr: 0.0005
+weight_decay: 0.01
+warmup_epochs: 5
+cosine_final_lr: 1.0e-6
+mixup_alpha: 0.0
+cutmix_alpha: 0.0
+ema_decay: 0.999
+grad_accum_steps: 1
+amp: true
+workers: 8
+data:
+  train_dir: data/train
+  val_dir: data/val
+  test_dir: data/test
+  mean: [0.485, 0.456, 0.406]
+  std:  [0.229, 0.224, 0.225]
+model:
+  hr_channels: [32, 64, 128, 256]
+  gcn_kernel: 7
+  da_rates: [1, 2, 4, 8]
+save_dir: runs
