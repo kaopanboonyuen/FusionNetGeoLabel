@@ -45,6 +45,41 @@ Our experiments on private Landsat-8 datasets and the public "ISPRS Vaihingen" b
 
 ---
 
+## 📜 Repo layout
+
+```
+FusionNetGeoLabel/
+├── fusionnetgeolabel/
+│   ├── __init__.py
+│   ├── FusionNetGeoLabel.py
+│   ├── heads.py
+│   ├── modules.py
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   ├── data.py
+│   │   ├── augmentation.py
+│   │   ├── metrics.py
+│   │   ├── losses.py
+│   │   ├── train_utils.py
+│   │   └── tiling.py
+├── configs/
+│   └── default.yaml
+├── scripts/
+│   ├── download_isprs_vaihingen.py
+│   ├── download_isprs_potsdam.py
+│   └── download_massachusetts_roads.py
+├── train.py
+├── test.py
+├── inference.py
+├── requirements.txt
+├── Dockerfile
+├── .gitignore
+├── LICENSE
+└── README.md
+```
+
+---
+
 ## **Publications & Resources** 📚
 
 - **Ph.D. Thesis:** [Semantic Segmentation on Remotely Sensed Images Using Deep Convolutional Encoder-Decoder Neural Network](https://digital.car.chula.ac.th/chulaetd/8534/) 📜
@@ -74,7 +109,8 @@ cd FusionNetGeoLabel
 ### 2. Install Requirements
 
 ```bash
-pip install -r requirements.txt
+python -m venv .venv && source .venv/bin/activate
+pip install --upgrade pip -r requirements.txt
 ```
 
 ### 3. Datasets
@@ -88,9 +124,7 @@ Supported datasets:
 Download scripts are provided:
 
 ```bash
-python scripts/download_isprs_vaihingen.py
-python scripts/download_isprs_potsdam.py
-python scripts/download_mass_roads.py
+python scripts/download_massachusetts_roads.py --out data/mass_roads
 ```
 
 > ⚠️ ISPRS datasets require registration and acceptance of terms. Place downloaded `.zip` files into `data/` and the scripts will unpack + tile.
@@ -114,20 +148,21 @@ python train.py \
 With mixed precision training (faster & memory efficient):
 
 ```bash
-python train.py --dataset vaihingen --amp
+python train.py --config configs/default.yaml
 ```
 
 ---
 
-## 🔍 Inference
+## 🔍 Inference and Testing
 
 Run inference on a large aerial image with sliding-window:
 
 ```bash
-python inference.py \
-  --model ./checkpoints/best_model.pth \
-  --image ./data/vaihingen/test/area1.tif \
-  --output ./results/area1_pred.png
+python inference.py --checkpoint runs/best.ckpt --image path/to/ortho.tif --out out.tif
+```
+
+```bash
+python test.py --checkpoint runs/last.ckpt --data_dir data/mass_roads
 ```
 
 ---
