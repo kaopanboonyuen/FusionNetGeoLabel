@@ -7,11 +7,17 @@
 
 **FusionNetGeoLabel** is a cutting-edge deep learning framework tailored for semantic segmentation in remotely sensed imagery. This repository is a culmination of my Ph.D. research, aimed at enhancing the accuracy and efficiency of semantic labeling in satellite and aerial images. 🚀
 
+One of the fundamental tasks in remote sensing is **semantic segmentation** on aerial and satellite imagery.  
+FusionNetGeoLabel introduces a feature-fusion-based **Enhanced Global Convolutional Network** with **high-resolution representations** and **depthwise atrous convolutions** for state-of-the-art performance on remote sensing benchmarks (ISPRS Vaihingen, Potsdam, and Massachusetts Roads).
+
+---
+
 ## **Author** ✍️
 
 **Teerapong Panboonyuen**  
-*(also known as Kao Panboonyuen)*  
 Ph.D. in Computer Engineering, Chulalongkorn University 🎓
+
+---
 
 ## **Abstract** 📄
 
@@ -26,6 +32,18 @@ This dissertation presents an advanced semantic segmentation framework designed 
 - **Depthwise Atrous Convolution (DA):** 🔍 Refines feature extraction for improved segmentation.
 
 Our experiments on private Landsat-8 datasets and the public "ISPRS Vaihingen" benchmark show that the proposed architecture significantly outperforms baseline models. 📊
+
+---
+
+## ✨ Key Features
+
+- 🛰️ **High-Resolution Feature Fusion** with Atrous Depthwise Convolution  
+- 🔥 **Global Convolutional Blocks** for capturing contextual dependencies  
+- ⚡ Mixed Precision Training (AMP) support for fast GPU training  
+- 📦 Modular PyTorch code with dataset loaders, metrics, and inference scripts  
+- 🐳 Ready-to-run with **Docker** and **Google Colab**  
+
+---
 
 ## **Publications & Resources** 📚
 
