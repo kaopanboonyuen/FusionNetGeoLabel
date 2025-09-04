@@ -43,53 +43,90 @@ Our experiments on private Landsat-8 datasets and the public "ISPRS Vaihingen" b
 
 ## **How to Use** 🔧
 
-### **Training** 🏋️
+---
 
-To train the model, follow these steps:
+## 🚀 Getting Started
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/kaopanboonyuen/FusionNetGeoLabel.git
-   cd FusionNetGeoLabel
-   ```
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Prepare your dataset and adjust the configuration:**
-   - Modify settings in `config.json` as needed.
-4. **Start training:**
-   ```bash
-   python train.py --config config.json
-   ```
+### 1. Clone Repo
+```bash
+git clone https://github.com/kaopanboonyuen/FusionNetGeoLabel.git
+cd FusionNetGeoLabel
+````
 
-### **Inference** 🔍
+### 2. Install Requirements
 
-To perform inference using a pretrained model:
-
-1. **Download the pretrained model:**
-   - Available [here](https://github.com/kaopanboonyuen/FusionNetGeoLabel).
-2. **Run the inference script:**
-   ```bash
-   python inference.py --model path_to_pretrained_model --image path_to_image
-   ```
-
-## **Citation** 📝
-
-If this work contributes to your research, please cite it as follows:
-
-```bibtex
-@phdthesis{panboonyuen2019semantic,
-  title     = {Semantic segmentation on remotely sensed images using deep convolutional encoder-decoder neural network},
-  author    = {Teerapong Panboonyuen},
-  year      = {2019},
-  school    = {Chulalongkorn University},
-  type      = {Ph.D. thesis},
-  doi       = {10.58837/CHULA.THE.2019.158},
-  address   = {Faculty of Engineering},
-  note      = {Doctor of Philosophy}
-}
+```bash
+pip install -r requirements.txt
 ```
+
+### 3. Datasets
+
+Supported datasets:
+
+* [ISPRS Vaihingen](https://www2.isprs.org/commissions/comm2/wg4/benchmark/semantic-labeling-vaihingen/) 🏙️
+* [ISPRS Potsdam](https://www2.isprs.org/commissions/comm2/wg4/2d-sem-label-potsdam/) 🌳
+* [Massachusetts Roads](https://www.cs.toronto.edu/~vmnih/data/) 🛣️
+
+Download scripts are provided:
+
+```bash
+python scripts/download_isprs_vaihingen.py
+python scripts/download_isprs_potsdam.py
+python scripts/download_mass_roads.py
+```
+
+> ⚠️ ISPRS datasets require registration and acceptance of terms. Place downloaded `.zip` files into `data/` and the scripts will unpack + tile.
+
+---
+
+## 🏋️ Training
+
+Example: training on Vaihingen dataset
+
+```bash
+python train.py \
+  --dataset vaihingen \
+  --data-dir ./data/vaihingen \
+  --batch-size 8 \
+  --epochs 100 \
+  --lr 0.001 \
+  --save-dir ./checkpoints
+```
+
+With mixed precision training (faster & memory efficient):
+
+```bash
+python train.py --dataset vaihingen --amp
+```
+
+---
+
+## 🔍 Inference
+
+Run inference on a large aerial image with sliding-window:
+
+```bash
+python inference.py \
+  --model ./checkpoints/best_model.pth \
+  --image ./data/vaihingen/test/area1.tif \
+  --output ./results/area1_pred.png
+```
+
+---
+
+## 🐳 Docker Support
+
+Build and run in Docker:
+
+```bash
+docker build -t fusionnet-geolabel .
+docker run --gpus all -it fusionnet-geolabel
+```
+
+---
+
+## 🚀 Sample Results
+
 
 <p align="center">
   <img src="img/out3.png" alt="Sample Output 1" width="400"/>
@@ -97,6 +134,32 @@ If this work contributes to your research, please cite it as follows:
   <img src="img/out5.png" alt="Sample Output 3" width="400"/>
 </p>
 
-## **License** ⚖️
+---
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## 📘 Citation
+
+If you use this code, please cite:
+
+```bibtex
+@phdthesis{panboonyuen2019semantic,
+  title  = {Semantic segmentation on remotely sensed images using deep convolutional encoder-decoder neural network},
+  author = {Teerapong Panboonyuen},
+  year   = {2019},
+  school = {Chulalongkorn University},
+  type   = {Ph.D. thesis},
+  doi    = {10.58837/CHULA.THE.2019.158},
+  address= {Faculty of Engineering},
+  note   = {Doctor of Philosophy}
+}
+```
+
+---
+
+## 🏆 Acknowledgements
+
+* ISPRS Vaihingen & Potsdam Datasets
+* Massachusetts Roads Dataset
+* PyTorch ecosystem
+* Chulalongkorn University – Faculty of Engineering
+
+---
