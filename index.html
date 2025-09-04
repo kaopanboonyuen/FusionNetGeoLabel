@@ -391,14 +391,38 @@ header h1 {
     </header>
 
     <div class="container">
+<section>
+  <h2>📚 Project Overview</h2>
+  <p>
+    <strong>FusionNetGeoLabel</strong> is a research-driven deep learning framework for 
+    <em>semantic segmentation of remote sensing imagery</em>. Built upon my doctoral research, 
+    it introduces a novel architecture that integrates:
+  </p>
 
-       <section>
-    <h2>📚 Project Overview</h2>
-    <p>
-        <strong>FusionNetGeoLabel</strong> is an advanced deep learning framework designed for semantic segmentation in satellite and aerial imagery. Developed as part of my Ph.D. research, it aims to significantly enhance the accuracy and efficiency of geospatial labeling using cutting-edge neural architectures, attention mechanisms, and domain-specific transfer learning techniques.
-    </p>
+  <ul>
+    <li><b>High-Resolution Backbone (HR):</b> preserves spatial precision by maintaining multi-resolution representations throughout the network.</li>
+    <li><b>Feature Fusion (FF):</b> bridges low-level and high-level features to recover fine details such as rivers, vegetation, and road boundaries.</li>
+    <li><b>Depthwise Atrous Convolution (DA):</b> enhances receptive fields at multiple scales while reducing parameter overhead.</li>
+  </ul>
+
+  <p>
+    This unified design, named <strong>HR-GCN-FF-DA</strong>, 
+    delivers state-of-the-art performance on benchmarks such as 
+    <i>ISPRS Vaihingen</i>, <i>Potsdam</i>, <i>Landsat-8</i>, and 
+    <i>Massachusetts Roads</i>, consistently surpassing existing baselines 
+    in <b>IoU</b>, <b>F1-score</b>, and <b>overall accuracy</b>.
+  </p>
+
+  <p>
+    Beyond academic evaluation, <strong>FusionNetGeoLabel</strong> is designed with 
+    practical deployment in mind — featuring modular utilities, dataset 
+    download scripts, pretrained models, and Docker support for seamless 
+    reproducibility. The goal is to provide both a research-grade 
+    contribution to the remote sensing community and a production-ready 
+    tool for real-world geospatial applications such as 
+    <em>urban planning, agriculture monitoring, and map updating</em>.
+  </p>
 </section>
-
 
 <section>
     <h2>🎓 Academic Journey & Scholarships</h2>
@@ -551,26 +575,44 @@ header h1 {
 
 
         <section>
-            <h2>🔧 How to Use</h2>
+  <h2>🔧 Getting Started</h2>
+  <p>The <b>FusionNetGeoLabel</b> framework provides a full semantic segmentation pipeline built on HR-Backbone + Feature Fusion + Depthwise Atrous Convolution. Below are quick steps to run training, inference, and evaluation.</p>
 
-            <h3>Training</h3>
-            <p>Clone the repository and install dependencies:</p>
-            <pre><code>git clone https://github.com/kaopanboonyuen/FusionNetGeoLabel.git
+  <h3>📥 Installation</h3>
+  <pre><code>git clone https://github.com/kaopanboonyuen/FusionNetGeoLabel.git
 cd FusionNetGeoLabel
 pip install -r requirements.txt
 </code></pre>
-            <p>Prepare your dataset and modify <code>config.json</code> as needed, then start training:</p>
-            <pre><code>python train.py --config config.json</code></pre>
 
-            <h3>Inference</h3>
-            <p>Download pretrained models from the repository and run inference:</p>
-            <pre><code>python inference.py --model path_to_pretrained_model --image path_to_image</code></pre>
-        </section>
+  <h3>📊 Training</h3>
+  <p>Prepare your dataset (ISPRS Vaihingen, Potsdam, Massachusetts Roads, or Landsat-8) using our dataset download scripts:</p>
+  <pre><code>bash scripts/download_isprs.sh
+bash scripts/download_potsdam.sh
+bash scripts/download_massachusetts.sh
+</code></pre>
+  <p>Modify <code>config.json</code> (e.g., dataset paths, hyperparameters), then start training:</p>
+  <pre><code>python train.py --config config.json</code></pre>
 
-        <section>
-            <h2>📝 Citation</h2>
-            <p>If you use this work in your research, please cite:</p>
-            <pre><code>@phdthesis{panboonyuen2019semantic,
+  <h3>🔎 Inference</h3>
+  <p>Run inference on single images or folders using pretrained checkpoints:</p>
+  <pre><code>python inference.py --model checkpoints/hrgcn_ff_da.pth --image sample.png
+</code></pre>
+
+  <h3>🧪 Evaluation</h3>
+  <p>Test your model against benchmark datasets with built-in metrics (IoU, F1-score, Accuracy):</p>
+  <pre><code>python test.py --config config.json --model checkpoints/hrgcn_ff_da.pth</code></pre>
+
+  <h3>🐳 Docker Support</h3>
+  <p>Build and run inside a container for reproducibility:</p>
+  <pre><code>docker build -t fusionnetgeolabel .
+docker run --gpus all -it fusionnetgeolabel
+</code></pre>
+</section>
+
+<section>
+  <h2>📝 Citation</h2>
+  <p>If you use this framework, please cite the following thesis:</p>
+  <pre><code>@phdthesis{panboonyuen2019semantic,
   title     = {Semantic segmentation on remotely sensed images using deep convolutional encoder-decoder neural network},
   author    = {Teerapong Panboonyuen},
   year      = {2019},
@@ -580,7 +622,8 @@ pip install -r requirements.txt
   address   = {Faculty of Engineering},
   note      = {Doctor of Philosophy}
 }</code></pre>
-        </section>
+</section>
+
 
         <section>
             <h2>📸 Visual Results</h2>
